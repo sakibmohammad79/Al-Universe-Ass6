@@ -21,10 +21,17 @@ const displayAiData = (datas) => {
                   <p class="card-text">3. ${data ? data.features[2] : 'No Features Found'}</p>
                 </div>
                 <div class="card-footer">
-                  <h5 class="footer-title">${data ? data.name : 'No Name Found'}</h5>
-                  <small class="text-muted">Last updated 3 mins ago</small>
+                    <h5 class="footer-title">${data ? data.name : 'No Name Found'}</h5>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                    <div>
+                        <h6> my name is </h6>
+                    </div>
                 </div>
               </div>
+            </div>
         `
         detailsContainer.appendChild(detailsDiv);
     })
