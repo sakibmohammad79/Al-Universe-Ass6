@@ -24,10 +24,10 @@ const displayAiData = (datas) => {
                     <h5 class="footer-title">${data ? data.name : 'No Name Found'}</h5>
                 <div class="d-flex justify-content-between">
                     <div>
-                        <small class="text-muted">Last updated 3 mins ago</small>
+                        <small class="text-muted"><i class="fa-solid fa-calendar-days"></i> ${data.published_in}</small>
                     </div>
                     <div>
-                        <h6> my name is </h6>
+                        <h6 class="fs-3 text-danger"><i class="fa-solid fa-circle-arrow-right"></i></h6>
                     </div>
                 </div>
               </div>
