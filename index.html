@@ -25,15 +25,28 @@
 
     <main>
         <!-- card details start here -->
-        <div id="details-container" class="row row-cols-1 row-cols-md-3 g-4">
+        <section>
+            <div id="details-container" class="row row-cols-1 row-cols-md-3 g-4">
               
-        </div>
+            </div>
+        </section>
         <!-- card details end here -->
 
+        <!-- spinner -->
+        <section class="mt-5">
+            <div id="loading" class="d-flex justify-content-center d-none">
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </section>
+
         <!-- show more button -->
-        <div id="show-more-btn" class="text-center my-5 d-none">
-            <button id="show-more" class="btn btn-lg btn-danger">See More</button>
-        </div>
+        <section>
+            <div id="show-more-btn" class="text-center my-5 d-none">
+                <button id="show-more" class="btn btn-lg btn-danger">See More</button>
+            </div>
+        </section>
 
     </main>
 

@@ -15,7 +15,6 @@ const displayAiData = (datas) => {
         showMorebutton.classList.remove('d-none');
     }
     else{
-
         showMorebutton.classList.add('d-none');
     }
 
@@ -47,10 +46,27 @@ const displayAiData = (datas) => {
         `
         detailsContainer.appendChild(detailsDiv);
     })
+    // stop spinner loader
+    toggleSpinner(false);
 }
 
 document.getElementById('show-more').addEventListener('click', function(){
-    ;
+    loadAiData();
 })
+
+document.getElementById('show-more').addEventListener('click', function(){
+    toggleSpinner(true);
+})
+
+// spinner
+const toggleSpinner = (isLoading) =>{
+    const spinnerSection = document.getElementById('loading');
+    if(isLoading){
+        spinnerSection.classList.remove('d-none');
+    }
+    else{
+        spinnerSection.classList.add('d-none');
+    }
+}
 
 loadAiData();
