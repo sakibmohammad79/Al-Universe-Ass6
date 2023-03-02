@@ -5,6 +5,10 @@ const loadAiData = () => {
     .then((data) => displayAiData(data.data.tools))
 }
 
+document.getElementById('show-more').addEventListener('click', function(){
+    loadAiData();
+})
+
 const displayAiData = (datas) => {
     const detailsContainer = document.getElementById('details-container');
 
@@ -19,7 +23,7 @@ const displayAiData = (datas) => {
     }
 
     datas.forEach(data => {
-        console.log(data);
+        //console.log(data);
         const detailsDiv = document.createElement('div');
         detailsDiv.classList.add('col');
         detailsDiv.innerHTML = `
@@ -38,7 +42,7 @@ const displayAiData = (datas) => {
                         <small class="text-muted"><i class="fa-solid fa-calendar-days"></i> ${data ? data.published_in : "Date Not Found"}</small>
                     </div>
                     <div>
-                        <h6 class="fs-3 text-danger"><i class="fa-solid fa-circle-arrow-right"></i></h6>
+                        <h2 class="fs-3 text-danger"><i onclick="loadAiDetails('${data.id}')" class="fa-solid fa-circle-arrow-right" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></h2>
                     </div>
                 </div>
               </div>
@@ -50,11 +54,8 @@ const displayAiData = (datas) => {
     toggleSpinner(false);
 }
 
-document.getElementById('show-more').addEventListener('click', function(){
-    loadAiData();
-})
 
-document.getElementById('show-more').addEventListener('click', function(){
+document.getElementById('show-more-btn').addEventListener('click', function(){
     toggleSpinner(true);
 })
 
@@ -69,4 +70,39 @@ const toggleSpinner = (isLoading) =>{
     }
 }
 
+const loadAiDetails= async (id) =>{
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    showAiDetails(data.data);
+    console.log(data.data); 
+}
+
+const showAiDetails = (data) => {
+    const modalTitle = document.getElementById('modal-title');
+    modalTitle.innerText = data.description;
+
+    const features = document.getElementById('Featurs');
+    features.innerText = data.features[1].feature_name;
+
+    const features1 = document.getElementById('Featurs1');
+    features1.innerText = data.features[2].feature_name;
+
+    const features2 = document.getElementById('Featurs2');
+    features2.innerText = data.features[3].feature_name;
+
+    const Integration = document.getElementById('Integration');
+    Integration.innerText = data.integrations[0];
+
+    const Integration1 = document.getElementById('Integration1');
+    Integration1.innerText = data.integrations[1];
+
+    const Integration2 = document.getElementById('Integration2');
+    Integration2.innerText = data.integrations[2];
+
+    
+    
+}
 loadAiData();
+
+//style="width: 18rem;
