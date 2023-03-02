@@ -7,6 +7,18 @@ const loadAiData = () => {
 
 const displayAiData = (datas) => {
     const detailsContainer = document.getElementById('details-container');
+
+    // show more section
+    const showMorebutton = document.getElementById('show-more-btn');
+    if(datas.length > 6){
+        datas = datas.slice(0, 6);
+        showMorebutton.classList.remove('d-none');
+    }
+    else{
+
+        showMorebutton.classList.add('d-none');
+    }
+
     datas.forEach(data => {
         console.log(data);
         const detailsDiv = document.createElement('div');
@@ -24,7 +36,7 @@ const displayAiData = (datas) => {
                     <h5 class="footer-title">${data ? data.name : 'No Name Found'}</h5>
                 <div class="d-flex justify-content-between">
                     <div>
-                        <small class="text-muted"><i class="fa-solid fa-calendar-days"></i> ${data.published_in}</small>
+                        <small class="text-muted"><i class="fa-solid fa-calendar-days"></i> ${data ? data.published_in : "Date Not Found"}</small>
                     </div>
                     <div>
                         <h6 class="fs-3 text-danger"><i class="fa-solid fa-circle-arrow-right"></i></h6>
@@ -36,5 +48,9 @@ const displayAiData = (datas) => {
         detailsContainer.appendChild(detailsDiv);
     })
 }
+
+document.getElementById('show-more').addEventListener('click', function(){
+    ;
+})
 
 loadAiData();
