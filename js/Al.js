@@ -1,22 +1,20 @@
-const loadAiData = () => {
+const loadAiData = (limit) => {
     const URL = ('https://openapi.programming-hero.com/api/ai/tools')
     fetch(URL)
     .then((res) => res.json())
-    .then((data) => displayAiData(data.data.tools))
+    .then((data) => displayAiData(data.data.tools, limit))
 }
 
-document.getElementById('show-more').addEventListener('click', function(){
-    loadAiData();
-})
-
-const displayAiData = (datas) => {
+const displayAiData = (datas, limit) => {
     const detailsContainer = document.getElementById('details-container');
+    detailsContainer.innerHTML = '';
 
     // show more section
     const showMorebutton = document.getElementById('show-more-btn');
-    if(datas.length > 6){
+    if(datas.length > 6 && limit){
         datas = datas.slice(0, 6);
         showMorebutton.classList.remove('d-none');
+
     }
     else{
         showMorebutton.classList.add('d-none');
@@ -84,51 +82,55 @@ const showAiDetails = (data) => {
     
 
     const features = document.getElementById('Featurs');
-    features.innerText = data.features[1].feature_name;
+    features.innerText = data.features ? data.features[1].feature_name : 'No data found';
 
     const features1 = document.getElementById('Featurs1');
-    features1.innerText = data.features[2].feature_name;
+    features1.innerText = data.features ? data.features[2].feature_name : 'No data found';
 
     const features2 = document.getElementById('Featurs2');
-    features2.innerText = data.features[3].feature_name;
+    features2.innerText = data.features ? data.features[3].feature_name : 'No data found';
 
     const priceContainer = document.getElementById('price1');
     priceContainer.innerHTML = `
-    <p>${data.pricing[0].price}<br>${data.pricing[0].plan}</p>
+    <p>${data.pricing? data.pricing[0].price : 'No data found'}<br>${data.pricing?data.pricing[0].plan : 'No data found'}</p>
     `
     const priceContainer1 = document.getElementById('price2');
     priceContainer1.innerHTML = `
-    <p>${data.pricing[1].price}<br>${data.pricing[1].plan}</p>
+    <p>${data.pricing?data.pricing[1].price:'No data found'}<br>${data.pricing?data.pricing[1].plan:'No data found'}</p>
     `
     const priceContainer2 = document.getElementById('contact');
     priceContainer2.innerHTML = `
-    <p>${data.pricing[2].price}<br>${data.pricing[2].plan}</p>
+    <p>${data.pricing?data.pricing[2].price: 'No data found'}<br>${data.pricing?data.pricing[2].plan: 'No data found'}</p>
     `
 
     const Integration = document.getElementById('Integration');
-    Integration.innerText = data.integrations[0];
+    Integration.innerText =data ? data.integrations[0]: 'No data found';
 
     const Integration1 = document.getElementById('Integration1');
-    Integration1.innerText = data.integrations[1];
+    Integration1.innerText = data ? data.integrations[1]: 'No data found';
 
     const Integration2 = document.getElementById('Integration2');
-    Integration2.innerText = data.integrations[2];
+    Integration2.innerText =data ? data.integrations[2]: 'No data found';
 
     const modalImg = document.getElementById('modal-img');
     modalImg.innerHTML = '';
     const modalImgContainer = document.createElement('div');
     modalImgContainer.innerHTML = `
     <div class="card">
-            <img src="${data.image_link[0]}" class="card-img-top img-fluid" alt="...">
+            <img src="${data ? data.image_link[0]: 'image not found'}" class="card-img-top img-fluid" alt="...">
         <div class="card-body">
-            <h4 class="card-text text-center">${data.input_output_examples[0].input}</h4>
-            <p class="text-muted text-center">${data.input_output_examples[0].output}</p>
+            <h4 class="card-text text-center">${data.input_output_examples[0]?data.input_output_examples[0].input: 'No data found'}</h4>
+            <p class="text-muted text-center">${data.input_output_examples[0]?data.input_output_examples[0].output: 'No data found'}</p>
         </div>
     </div>
     `
     modalImg.appendChild(modalImgContainer);
 
 }
-loadAiData();
+
+document.getElementById('show-more').addEventListener('click', function(){
+    loadAiData();
+})
+loadAiData(6);
 
 //style="width: 18rem;
