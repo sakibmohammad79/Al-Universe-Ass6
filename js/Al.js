@@ -110,9 +110,9 @@ const showAiDetails = (data) => {
                     <div>
                     <h5>integrations</h5>
                     <ul>
-                        <li>${data ? data.integrations[0] : 'No integrations'}</li>
-                        <li>${data ? data.integrations[1] : 'No integrations'}</li>
-                        <li>${data ? data.integrations[2] : 'No integrations'}</li>
+                        <li>${data.integrations ? data.integrations[0] : 'No integrations'}</li>
+                        <li>${data.intergrations? data.integrations[1] : 'No integrations'}</li>
+                        <li>${data.intergrations ? data.integrations[2] : 'No integrations'}</li>
                     </ul>
                     </div>
                 </div
@@ -126,8 +126,12 @@ const showAiDetails = (data) => {
     modalImg.innerHTML = '';
     const modalImgContainer = document.createElement('div');
     modalImgContainer.innerHTML = `
+    
     <div class="card">
-            <img src="${data ? data.image_link[0]: 'image not found'}" class="card-img-top img-fluid" alt="...">
+        <div id="badges">
+        <span class="badge fs-5 rounded-pill text-bg-danger">${data.accuracy ? data.accuracy.score*100 : 'no data found'}% accuracy</span>
+        </div>
+            <img src="${data.image_link ? data.image_link[0]: 'image not found'}" class="card-img-top img-fluid" alt="...">
         <div class="card-body">
             <h4 class="card-text text-center">${data.input_output_examples[0]?data.input_output_examples[0].input: 'No data found'}</h4>
             <p class="text-muted text-center">${data.input_output_examples[0]?data.input_output_examples[0].output: 'No data found'}</p>
