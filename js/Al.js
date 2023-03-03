@@ -74,13 +74,14 @@ const loadAiDetails= async (id) =>{
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
     const res = await fetch(url);
     const data = await res.json();
-    showAiDetails(data.data);
-    console.log(data.data); 
+    showAiDetails(data.data); 
 }
 
 const showAiDetails = (data) => {
-    const modalTitle = document.getElementById('modal-title');
-    modalTitle.innerText = data.description;
+    console.log(data);
+    const modalTitle = document.getElementById('modal-description');
+    modalTitle.innerText = data.description
+    
 
     const features = document.getElementById('Featurs');
     features.innerText = data.features[1].feature_name;
@@ -91,6 +92,19 @@ const showAiDetails = (data) => {
     const features2 = document.getElementById('Featurs2');
     features2.innerText = data.features[3].feature_name;
 
+    const priceContainer = document.getElementById('price1');
+    priceContainer.innerHTML = `
+    <p>${data.pricing[0].price}<br>${data.pricing[0].plan}</p>
+    `
+    const priceContainer1 = document.getElementById('price2');
+    priceContainer1.innerHTML = `
+    <p>${data.pricing[1].price}<br>${data.pricing[1].plan}</p>
+    `
+    const priceContainer2 = document.getElementById('contact');
+    priceContainer2.innerHTML = `
+    <p>${data.pricing[2].price}<br>${data.pricing[2].plan}</p>
+    `
+
     const Integration = document.getElementById('Integration');
     Integration.innerText = data.integrations[0];
 
@@ -100,8 +114,20 @@ const showAiDetails = (data) => {
     const Integration2 = document.getElementById('Integration2');
     Integration2.innerText = data.integrations[2];
 
-    
-    
+    const modalImg = document.getElementById('modal-img');
+    modalImg.innerHTML = '';
+    const modalImgContainer = document.createElement('div');
+    modalImgContainer.innerHTML = `
+    <div class="card">
+            <img src="${data.image_link[0]}" class="card-img-top img-fluid" alt="...">
+        <div class="card-body">
+            <h4 class="card-text text-center">${data.input_output_examples[0].input}</h4>
+            <p class="text-muted text-center">${data.input_output_examples[0].output}</p>
+        </div>
+    </div>
+    `
+    modalImg.appendChild(modalImgContainer);
+
 }
 loadAiData();
 
