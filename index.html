@@ -9,8 +9,8 @@
     <style>
         #badges{
             position: absolute;
-            margin-left: 300px;
-            margin-top: 10px;
+            margin-left: 900px;
+            margin-top: 60px;
             
         }
         #cross{
@@ -82,6 +82,11 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="badges" class="d-none">
+                    <p class="badge fs-4 fs-md-5 p-2 p-md-3 rounded-pill text-bg-danger"><span id="badge"></span>% accuracy</p>
+                </div>
+
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
@@ -89,8 +94,6 @@
             </div>
           </div>
         </section>
-
-
     </main>
 
 
@@ -100,3 +103,14 @@
     <script src="js/Al.js"></script>
 </body>
 </html>
+
+
+<!-- <div id="badges" >
+    <span class="badge fs-4 fs-md-5 p-2 p-md-3 rounded-pill text-bg-danger">${data.accuracy.score*100}% accuracy</span>
+    </div> -->
+
+    <!-- const badgeContainer =  document.getElementById('badge');
+    badge.innerText = data.accuracy.score*100;
+    badgeContainer.appendChild(badge); -->
+
+    

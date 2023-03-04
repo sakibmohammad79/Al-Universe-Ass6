@@ -89,31 +89,31 @@ const showAiDetails = (data) => {
             <h5 class="card-text">${data? data.description : 'Description not found'}</h5>
             <div class="d-flex justify-content-between text-center gap-1 fw-bold">
                 <div class="bg-white p-2 rounded-3">
-                    <p>${data.pricing ? data.pricing[0].price : 'No price'}<br>${data.pricing ? data.pricing[0].plan : 'No plan'}</p>
+                    <p>${data.pricing ? data.pricing[0].price : 'Free of cost'}<br>${data.pricing ? data.pricing[0].plan : 'Basic'}</p>
                 </div>
                     <div class="bg-white p-2 rounded-3">
-                    <p>${data.pricing ? data.pricing[1].price : 'No price'}<br>${data.pricing ? data.pricing[1].plan : 'No plan'}</p>
+                    <p>${data.pricing ? data.pricing[1].price : 'Free of cost'}<br>${data.pricing ? data.pricing[1].plan : 'Pro'}</p>
                 </div>
                 <div class="bg-white p-2 rounded-3">
-                    <p>${data.pricing ? data.pricing[2].price : 'No price'}<br>${data.pricing ? data.pricing[2].plan : 'No plan'}</p>
+                    <p>${data.pricing ? data.pricing[2].price : 'Free of cost'}<br>${data.pricing ? data.pricing[2].plan : 'Enterprise'}</p>
                 </div>
             </div>
             <div class="d-flex justify-content-between">
                 <div>
                     <h5>Features</h5>
                     <ul>
-                        <li>${data.features? data.features[1].feature_name : 'No Features'}</li>
-                        <li>${data.features? data.features[2].feature_name : 'No Features'}</li>
-                        <li>${data.features? data.features[3].feature_name : 'No Features'}</li>
+                        <li>${data.features? data.features[1].feature_name : 'No Data Found'}</li>
+                        <li>${data.features? data.features[2].feature_name : 'No Data Found'}</li>
+                        <li>${data.features? data.features[3].feature_name : 'No Data Found'}</li>
                     </ul>
                 </div
                 <div>
                     <div>
                     <h5>integrations</h5>
                     <ul>
-                        <li>${data.integrations ? data.integrations[0] : 'No integrations'}</li>
-                        <li>${data.intergrations? data.integrations[1] : 'No integrations'}</li>
-                        <li>${data.intergrations ? data.integrations[2] : 'No integrations'}</li>
+                        <li>${data.integrations[0] ? data.integrations[0] : 'Data not Found'}</li>
+                        <li>${data.integrations[1] ? data.integrations[1] : 'Data not Found'}</li>
+                        <li>${data.integrations[2] ? data.integrations[2] : 'Data not Found'}</li>
                     </ul>
                     </div>
                 </div
@@ -121,18 +121,17 @@ const showAiDetails = (data) => {
         </div>
     </div>
     `
+    
+    
+
     modalContainers.appendChild(modalDiv);  
     const modalImg = document.getElementById('modal-img');
     modalImg.innerHTML = '';
     const modalImgContainer = document.createElement('div');
     modalImgContainer.innerHTML = `
-    
     <div class="card">
-    <div id="cross">
-    <i class="fs-1 text-danger fa-sharp fa-solid fa-circle-xmark" data-bs-dismiss="modal"></i>
-    </div>
-        <div id="badges">
-        <span class="badge fs-4 fs-md-5 p-2 p-md-3 rounded-pill text-bg-danger">${data.accuracy ? data.accuracy.score*100 : "data not found"}% accuracy</span>
+        <div id="cross">
+            <i class="fs-1 text-danger fa-sharp fa-solid fa-circle-xmark" data-bs-dismiss="modal"></i>
         </div>
             <img src="${data.image_link ? data.image_link[0]: 'image not found'}" class="card-img-top img-fluid" alt="...">
         <div class="card-body">
@@ -142,8 +141,20 @@ const showAiDetails = (data) => {
     </div>
     `
     modalImg.appendChild(modalImgContainer);
+    const badgeContainer =  document.getElementById('badges');
+    //console.log(data.accuracy.score);
+    if(data.accuracy.score !== null){
+        badgeContainer.classList.remove('d-none')
+    }
+    else{
+        badgeContainer.classList.add('d-none');
+    }
+    const badgeContainers =  document.getElementById('badge');
+    badgeContainers.innerText = data.accuracy.score*100;
 
 }
+
+
 
 document.getElementById('show-more').addEventListener('click', function(){
     loadAiData();
