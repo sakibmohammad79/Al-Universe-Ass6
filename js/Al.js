@@ -2,9 +2,7 @@ const loadAiData = (limit) => {
     const URL = ('https://openapi.programming-hero.com/api/ai/tools')
     fetch(URL)
     .then((res) => res.json())
-    .then((data) =>{
-        displayAiData(data.data.tools, limit);
-    })
+    .then((data) => displayAiData(data.data.tools, limit))
 }
 
 const displayAiData = (datas, limit) => {
@@ -17,12 +15,10 @@ const displayAiData = (datas, limit) => {
     if(datas.length > 6 && limit){
         datas = datas.slice(0, 6);
         showMorebutton.classList.remove('d-none');
-
     }
     else{
         showMorebutton.classList.add('d-none');
     }
-
     datas.forEach(data => {
         //console.log(data);
         const detailsDiv = document.createElement('div');
@@ -51,7 +47,6 @@ const displayAiData = (datas, limit) => {
         `
         detailsContainer.appendChild(detailsDiv);
     })
-
     // stop spinner loader
     toggleSpinner(false);
 }
@@ -70,42 +65,36 @@ const toggleSpinner = (isLoading) =>{
         spinnerSection.classList.add('d-none');
     }
 }
-
 const loadAiDetails= async (id) =>{
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
     const res = await fetch(url);
     const data = await res.json();
     showAiDetails(data.data); 
 }
-
-
 const showAiDetails = (data) => {
-    
     console.log(data);
     const modalContainers = document.getElementById('modal-details');
     modalContainers.innerHTML = '';
     const modalDiv = document.createElement('div');
     modalDiv.innerHTML = `
-    
     <div class="card w-fluid bg-warning-subtle">
         <div class="card-body">
-            
             <h5 class="card-text">${data? data.description : 'Description not found'}</h5>
             <div class="d-flex justify-content-between text-center gap-1 fw-bold">
                 <div class="bg-white p-2 rounded-3">
-                    <p>${data.pricing ? data.pricing[0].price : 'Free of cost'}<br>${data.pricing ? data.pricing[0].plan : 'Basic'}</p>
+                    <p class= "text-success">${data.pricing ? data.pricing[0].price : 'Free of cost'}<br>${data.pricing ? data.pricing[0].plan : 'Basic'}</p>
                 </div>
                     <div class="bg-white p-2 rounded-3">
-                    <p>${data.pricing ? data.pricing[1].price : 'Free of cost'}<br>${data.pricing ? data.pricing[1].plan : 'Pro'}</p>
+                    <p class= "text-warning">${data.pricing ? data.pricing[1].price : 'Free of cost'}<br>${data.pricing ? data.pricing[1].plan : 'Pro'}</p>
                 </div>
                 <div class="bg-white p-2 rounded-3">
-                    <p>${data.pricing ? data.pricing[2].price : 'Free of cost'}<br>${data.pricing ? data.pricing[2].plan : 'Enterprise'}</p>
+                    <p class= "text-danger">${data.pricing ? data.pricing[2].price : 'Free of cost'}<br>${data.pricing ? data.pricing[2].plan : 'Enterprise'}</p>
                 </div>
             </div>
             <div class="d-flex justify-content-between">
                 <div>
                     <h5>Features</h5>
-                    <ul>
+                    <ul">
                         <li>${data.features? data.features[1].feature_name : 'No Data Found'}</li>
                         <li>${data.features? data.features[2].feature_name : 'No Data Found'}</li>
                         <li>${data.features? data.features[3].feature_name : 'No Data Found'}</li>
@@ -125,7 +114,6 @@ const showAiDetails = (data) => {
         </div>
     </div>
     `
-
     modalContainers.appendChild(modalDiv);  
     const modalImg = document.getElementById('modal-img');
     modalImg.innerHTML = '';
@@ -155,36 +143,18 @@ const showAiDetails = (data) => {
     badgeContainers.innerText = data.accuracy.score*100;
 
 }
-
-let sortDataload = () =>{
-    const URL = ('https://openapi.programming-hero.com/api/ai/tools')
-        fetch(URL)
-        .then((res) => res.json())
-        .then((data) =>{
-            showData(data.data.tools);
-            
-        })
-
-        const showData =(datas) => {
-            const arrayDate = [];
-            for(const data of datas){
-                const myData = data.published_in;
-                const sorted = Date.parse(myData);
-                arrayDate.push(sorted);
-            }
-            const sortedDate = arrayDate.sort();
     
-            document.getElementById('sort-btn').addEventListener('click', function(){
-                displayAiData(sortedDate);
-                console.log(sortedDate);
-            })
-    }
-}
-        
-        
 document.getElementById('show-more').addEventListener('click', function(){
     loadAiData();
 })
 
 loadAiData(6);
+
+
+  
+  
+  
+  
+  
+  
 
