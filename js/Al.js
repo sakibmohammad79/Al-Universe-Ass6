@@ -4,7 +4,6 @@ const loadAiData = (limit) => {
     .then((res) => res.json())
     .then((data) =>{
         displayAiData(data.data.tools, limit);
-        //sortedData(data.data.tools);
     })
 }
 
@@ -56,7 +55,6 @@ const displayAiData = (datas, limit) => {
     // stop spinner loader
     toggleSpinner(false);
 }
-
 
 document.getElementById('show-more-btn').addEventListener('click', function(){
     toggleSpinner(true);
@@ -127,8 +125,6 @@ const showAiDetails = (data) => {
         </div>
     </div>
     `
-    
-    
 
     modalContainers.appendChild(modalDiv);  
     const modalImg = document.getElementById('modal-img');
@@ -166,8 +162,7 @@ let sortDataload = () =>{
         .then((res) => res.json())
         .then((data) =>{
             showData(data.data.tools);
-            //sortedData(data.data.tools);
-        //console.log(data.data.tools);
+            
         })
 
         const showData =(datas) => {
@@ -184,33 +179,12 @@ let sortDataload = () =>{
                 console.log(sortedDate);
             })
     }
-        }
+}
         
         
-        
-    
-        
-
-// const sortedData = (datas) => {
-//     document.getElementById('sort-btn').addEventListener('click', function(){
-//     const arrayDate = [];
-//     for(const data of datas){
-//        const myData = data.published_in;
-//        const sorted = Date.parse(myData);
-//        arrayDate.push(sorted);
-//     }
-//     const sortedDate = arrayDate.sort();
-//     console.log(sortedDate);
-    
-//     })
-    
-//}
-
-
 document.getElementById('show-more').addEventListener('click', function(){
     loadAiData();
 })
 
 loadAiData(6);
 
-//style="width: 18rem;
