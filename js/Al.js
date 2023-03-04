@@ -2,10 +2,14 @@ const loadAiData = (limit) => {
     const URL = ('https://openapi.programming-hero.com/api/ai/tools')
     fetch(URL)
     .then((res) => res.json())
-    .then((data) => displayAiData(data.data.tools, limit))
+    .then((data) =>{
+        displayAiData(data.data.tools, limit);
+        //sortedData(data.data.tools);
+    })
 }
 
 const displayAiData = (datas, limit) => {
+    //console.log(datas);
     const detailsContainer = document.getElementById('details-container');
     detailsContainer.innerHTML = '';
 
@@ -29,9 +33,9 @@ const displayAiData = (datas, limit) => {
                 <img src="${data ? data.image : 'No images'}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">Features</h5>
-                  <p class="card-text">1. ${data ? data.features[0] : 'No Features Found'}</p>
-                  <p class="card-text">2. ${data ? data.features[1] : 'No Features Found'}</p>
-                  <p class="card-text">3. ${data ? data.features[2] : 'No Features Found'}</p>
+                  <p class="card-text">1. ${data.features[0] ? data.features[0] : 'No Features Found'}</p>
+                  <p class="card-text">2. ${data.features[1] ? data.features[1] : 'No Features Found'}</p>
+                  <p class="card-text">3. ${data.features[2] ? data.features[2] : 'No Features Found'}</p>
                 </div>
                 <div class="card-footer">
                     <h5 class="footer-title">${data ? data.name : 'No Name Found'}</h5>
@@ -48,6 +52,7 @@ const displayAiData = (datas, limit) => {
         `
         detailsContainer.appendChild(detailsDiv);
     })
+
     // stop spinner loader
     toggleSpinner(false);
 }
@@ -77,6 +82,7 @@ const loadAiDetails= async (id) =>{
 
 
 const showAiDetails = (data) => {
+    
     console.log(data);
     const modalContainers = document.getElementById('modal-details');
     modalContainers.innerHTML = '';
@@ -111,9 +117,9 @@ const showAiDetails = (data) => {
                     <div>
                     <h5>integrations</h5>
                     <ul>
-                        <li>${data.integrations[0] ? data.integrations[0] : 'Data not Found'}</li>
-                        <li>${data.integrations[1] ? data.integrations[1] : 'Data not Found'}</li>
-                        <li>${data.integrations[2] ? data.integrations[2] : 'Data not Found'}</li>
+                        <li>${data.integrations || data.integrations === 'null' ? data.integrations[0] || 'Data not found' : 'Data not Found'}</li>
+                        <li>${data.integrations || data.integrations === 'null' ? data.integrations[1] || 'Data not found' : 'Data not Found'}</li>
+                        <li>${data.integrations || data.integrations === 'null' ? data.integrations[2] || 'Data not found' : 'Data not Found'}</li>
                     </ul>
                     </div>
                 </div
@@ -133,10 +139,10 @@ const showAiDetails = (data) => {
         <div id="cross">
             <i class="fs-1 text-danger fa-sharp fa-solid fa-circle-xmark" data-bs-dismiss="modal"></i>
         </div>
-            <img src="${data.image_link ? data.image_link[0]: 'image not found'}" class="card-img-top img-fluid" alt="...">
+            <img src="${data.image_link ? data.image_link[0] : 'image not found'}" class="card-img-top img-fluid" alt="...">
         <div class="card-body">
-            <h4 class="card-text text-center">${data.input_output_examples[0]?data.input_output_examples[0].input: 'No data found'}</h4>
-            <p class="text-muted text-center">${data.input_output_examples[0]?data.input_output_examples[0].output: 'No data found'}</p>
+            <h4 class="card-text text-center">${data.input_output_examples ? data.input_output_examples[0].input: 'No data found'}</h4>
+            <p class="text-muted text-center">${data.input_output_examples ? data.input_output_examples[0].output: 'No data found'}</p>
         </div>
     </div>
     `
@@ -154,6 +160,51 @@ const showAiDetails = (data) => {
 
 }
 
+let sortDataload = () =>{
+    const URL = ('https://openapi.programming-hero.com/api/ai/tools')
+        fetch(URL)
+        .then((res) => res.json())
+        .then((data) =>{
+            showData(data.data.tools);
+            //sortedData(data.data.tools);
+        //console.log(data.data.tools);
+        })
+
+        const showData =(datas) => {
+            const arrayDate = [];
+            for(const data of datas){
+                const myData = data.published_in;
+                const sorted = Date.parse(myData);
+                arrayDate.push(sorted);
+            }
+            const sortedDate = arrayDate.sort();
+    
+            document.getElementById('sort-btn').addEventListener('click', function(){
+                displayAiData(sortedDate);
+                console.log(sortedDate);
+            })
+    }
+        }
+        
+        
+        
+    
+        
+
+// const sortedData = (datas) => {
+//     document.getElementById('sort-btn').addEventListener('click', function(){
+//     const arrayDate = [];
+//     for(const data of datas){
+//        const myData = data.published_in;
+//        const sorted = Date.parse(myData);
+//        arrayDate.push(sorted);
+//     }
+//     const sortedDate = arrayDate.sort();
+//     console.log(sortedDate);
+    
+//     })
+    
+//}
 
 
 document.getElementById('show-more').addEventListener('click', function(){
